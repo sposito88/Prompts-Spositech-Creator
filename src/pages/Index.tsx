@@ -33,7 +33,14 @@ const Index = () => {
       }
 
       const responseData = await response.json();
-      setResult(responseData.prompt || responseData.result || JSON.stringify(responseData));
+      
+      // Extrair o texto do campo 'output' do primeiro item do array
+      if (Array.isArray(responseData) && responseData.length > 0 && responseData[0].output) {
+        setResult(responseData[0].output);
+      } else {
+        // Fallback se a estrutura não for a esperada
+        setResult(JSON.stringify(responseData));
+      }
     } catch (error) {
       console.error('Error generating prompt:', error);
       toast({
