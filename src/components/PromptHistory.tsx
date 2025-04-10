@@ -28,22 +28,22 @@ export function PromptHistory({ items, onSelect, onToggleFavorite, onClear }: Pr
   
   if (items.length === 0) {
     return (
-      <Card className="w-full">
+      <Card className="w-full bg-black/30 border border-gray-800">
         <CardHeader>
-          <CardTitle>{t('history.title')}</CardTitle>
+          <CardTitle className="text-white">{t('history.title')}</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-muted-foreground text-center py-4">{t('history.empty')}</p>
+          <p className="text-gray-400 text-center py-4">{t('history.empty')}</p>
         </CardContent>
       </Card>
     );
   }
 
   return (
-    <Card className="w-full">
+    <Card className="w-full bg-black/30 border border-gray-800">
       <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle>{t('history.title')}</CardTitle>
-        <Button variant="outline" size="sm" onClick={onClear}>
+        <CardTitle className="text-white">{t('history.title')}</CardTitle>
+        <Button variant="outline" size="sm" onClick={onClear} className="border-gray-700 text-gray-300 hover:bg-gray-800">
           {t('history.clear')}
         </Button>
       </CardHeader>
@@ -53,12 +53,12 @@ export function PromptHistory({ items, onSelect, onToggleFavorite, onClear }: Pr
             {items.map((item) => (
               <div 
                 key={item.id} 
-                className="p-3 border rounded-md hover:bg-accent transition-colors cursor-pointer flex justify-between group"
+                className="p-3 border border-gray-800 rounded-md hover:bg-gray-900 transition-colors cursor-pointer flex justify-between group"
                 onClick={() => onSelect(item)}
               >
                 <div className="flex-1 mr-2 overflow-hidden">
-                  <p className="font-medium truncate">{item.style} - {item.subject}</p>
-                  <div className="flex items-center text-xs text-muted-foreground space-x-2">
+                  <p className="font-medium truncate text-white">{item.style} - {item.subject}</p>
+                  <div className="flex items-center text-xs text-gray-400 space-x-2">
                     <Clock className="h-3 w-3" />
                     <span>
                       {new Date(item.timestamp).toLocaleString()}
@@ -68,7 +68,7 @@ export function PromptHistory({ items, onSelect, onToggleFavorite, onClear }: Pr
                 <Button 
                   variant="ghost" 
                   size="icon" 
-                  className="opacity-0 group-hover:opacity-100 transition-opacity"
+                  className="opacity-0 group-hover:opacity-100 transition-opacity text-gray-400 hover:text-white hover:bg-transparent"
                   onClick={(e) => {
                     e.stopPropagation();
                     onToggleFavorite(item.id);

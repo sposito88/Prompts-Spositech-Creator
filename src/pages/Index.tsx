@@ -1,15 +1,16 @@
+
 import React, { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { Header } from '@/components/Header';
 import { PromptForm, PromptData } from '@/components/PromptForm';
 import { PromptResult } from '@/components/PromptResult';
 import { LoadingAnimation } from '@/components/LoadingAnimation';
-import { PromptHistory, HistoryItem } from '@/components/PromptHistory';
+import { HistoryTabs } from '@/components/HistoryTabs';
+import { HistoryItem } from '@/components/PromptHistory';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useToast } from '@/components/ui/use-toast';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Sparkles, Clock, Star } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 import {
   Sheet,
   SheetContent,
@@ -207,7 +208,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-black">
       <Header />
       
       <main className="flex-1 container py-8">
@@ -258,76 +259,36 @@ const Index = () => {
             </div>
 
             <div className="hidden md:block w-full md:w-1/3">
-              <Tabs defaultValue="history" className="w-full">
-                <TabsList className="w-full">
-                  <TabsTrigger value="history" className="flex-1">
-                    <Clock className="h-4 w-4 mr-2" />
-                    {t('history.title')}
-                  </TabsTrigger>
-                  <TabsTrigger value="favorites" className="flex-1">
-                    <Star className="h-4 w-4 mr-2" />
-                    {t('favorites.title')}
-                  </TabsTrigger>
-                </TabsList>
-                <TabsContent value="history" className="mt-4">
-                  <PromptHistory 
-                    items={history} 
-                    onSelect={handleSelectHistoryItem}
-                    onToggleFavorite={handleToggleFavorite}
-                    onClear={handleClearHistory}
-                  />
-                </TabsContent>
-                <TabsContent value="favorites" className="mt-4">
-                  <PromptHistory 
-                    items={favorites} 
-                    onSelect={handleSelectHistoryItem}
-                    onToggleFavorite={handleToggleFavorite}
-                    onClear={handleClearFavorites}
-                  />
-                </TabsContent>
-              </Tabs>
+              <HistoryTabs
+                history={history}
+                favorites={favorites}
+                onSelectItem={handleSelectHistoryItem}
+                onToggleFavorite={handleToggleFavorite}
+                onClearHistory={handleClearHistory}
+                onClearFavorites={handleClearFavorites}
+              />
             </div>
 
             <div className="md:hidden fixed bottom-6 right-6 z-10">
               <Sheet>
                 <SheetTrigger asChild>
-                  <Button size="icon" className="rounded-full h-14 w-14 shadow-lg">
+                  <Button size="icon" className="rounded-full h-14 w-14 shadow-lg bg-purple-600 hover:bg-purple-700">
                     <Sparkles className="h-6 w-6" />
                   </Button>
                 </SheetTrigger>
-                <SheetContent side="right" className="w-[320px] sm:w-[400px]">
+                <SheetContent side="right" className="w-[320px] sm:w-[400px] bg-black border-l border-gray-800">
                   <SheetHeader>
-                    <SheetTitle>{t('history.title')}</SheetTitle>
+                    <SheetTitle className="text-white">{t('history.title')}</SheetTitle>
                   </SheetHeader>
                   <div className="py-6">
-                    <Tabs defaultValue="history" className="w-full">
-                      <TabsList className="w-full">
-                        <TabsTrigger value="history" className="flex-1">
-                          <Clock className="h-4 w-4 mr-2" />
-                          {t('history.title')}
-                        </TabsTrigger>
-                        <TabsTrigger value="favorites" className="flex-1">
-                          <Star className="h-4 w-4 mr-2" />
-                          {t('favorites.title')}
-                        </TabsTrigger>
-                      </TabsList>
-                      <TabsContent value="history" className="mt-4">
-                        <PromptHistory 
-                          items={history} 
-                          onSelect={handleSelectHistoryItem}
-                          onToggleFavorite={handleToggleFavorite}
-                          onClear={handleClearHistory}
-                        />
-                      </TabsContent>
-                      <TabsContent value="favorites" className="mt-4">
-                        <PromptHistory 
-                          items={favorites} 
-                          onSelect={handleSelectHistoryItem}
-                          onToggleFavorite={handleToggleFavorite}
-                          onClear={handleClearFavorites}
-                        />
-                      </TabsContent>
-                    </Tabs>
+                    <HistoryTabs
+                      history={history}
+                      favorites={favorites}
+                      onSelectItem={handleSelectHistoryItem}
+                      onToggleFavorite={handleToggleFavorite}
+                      onClearHistory={handleClearHistory}
+                      onClearFavorites={handleClearFavorites}
+                    />
                   </div>
                 </SheetContent>
               </Sheet>
@@ -336,8 +297,8 @@ const Index = () => {
         </div>
       </main>
       
-      <footer className="border-t py-6">
-        <div className="container text-center text-sm text-muted-foreground">
+      <footer className="border-t border-gray-800 py-6">
+        <div className="container text-center text-sm text-gray-500">
           <p>© 2023 Spositech Prompt Generation</p>
         </div>
       </footer>

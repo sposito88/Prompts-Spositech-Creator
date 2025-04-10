@@ -32,6 +32,8 @@ const translations: Record<Language, TranslationValues> = {
     'style.technical': 'Técnico',
     'style.conversational': 'Conversacional',
     'style.storytelling': 'Narrativo',
+    'style.persuasive': 'Persuasivo',
+    'style.instructional': 'Instrucional',
     
     // Result
     'result.title': 'Seu Prompt',
@@ -53,6 +55,18 @@ const translations: Record<Language, TranslationValues> = {
     // Language toggle
     'language.en': 'English',
     'language.pt-BR': 'Português',
+    
+    // History and Favorites
+    'history.title': 'Histórico',
+    'history.empty': 'Sem histórico de prompts',
+    'history.clear': 'Limpar histórico',
+    'history.cleared': 'Histórico limpo',
+    'favorites.title': 'Favoritos',
+    'favorites.add': 'Adicionar aos favoritos',
+    'favorites.remove': 'Remover dos favoritos',
+    'favorites.added': 'Adicionado aos favoritos',
+    'favorites.removed': 'Removido dos favoritos',
+    'favorites.cleared': 'Favoritos limpos',
   },
   'en': {
     // Header
@@ -75,6 +89,8 @@ const translations: Record<Language, TranslationValues> = {
     'style.technical': 'Technical',
     'style.conversational': 'Conversational',
     'style.storytelling': 'Storytelling',
+    'style.persuasive': 'Persuasive',
+    'style.instructional': 'Instructional',
     
     // Result
     'result.title': 'Your Prompt',
@@ -96,6 +112,18 @@ const translations: Record<Language, TranslationValues> = {
     // Language toggle
     'language.en': 'English',
     'language.pt-BR': 'Português',
+    
+    // History and Favorites
+    'history.title': 'History',
+    'history.empty': 'No prompt history',
+    'history.clear': 'Clear history',
+    'history.cleared': 'History cleared',
+    'favorites.title': 'Favorites',
+    'favorites.add': 'Add to favorites',
+    'favorites.remove': 'Remove from favorites',
+    'favorites.added': 'Added to favorites',
+    'favorites.removed': 'Removed from favorites',
+    'favorites.cleared': 'Favorites cleared',
   }
 };
 
