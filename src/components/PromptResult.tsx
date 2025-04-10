@@ -44,15 +44,16 @@ export function PromptResult({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <Card className="w-full max-w-4xl mt-6 overflow-hidden border-gradient">
-        <CardHeader className="bg-muted/30">
+      <Card className="w-full max-w-4xl mt-6 overflow-hidden border border-purple-900/50 bg-black/40 backdrop-blur-sm">
+        <CardHeader className="bg-purple-900/20">
           <CardTitle className="flex justify-between items-center">
-            <span>{t('result.title')}</span>
+            <span className="text-gradient">{t('result.title')}</span>
             {onSaveToFavorites && (
               <Button 
                 variant="ghost" 
                 size="icon" 
                 onClick={onSaveToFavorites}
+                className="hover:bg-purple-900/30 transition-colors"
                 aria-label={isFavorite ? t('favorites.remove') : t('favorites.add')}
               >
                 {isFavorite ? (
@@ -65,18 +66,18 @@ export function PromptResult({
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4 p-6">
-          <div className="p-4 bg-secondary/50 rounded-md whitespace-pre-wrap glass-result-panel">
+          <div className="p-4 bg-purple-900/10 rounded-md whitespace-pre-wrap backdrop-blur-sm border border-purple-900/30">
             {result}
           </div>
         </CardContent>
-        <CardFooter className="flex flex-wrap gap-2 bg-muted/30 p-4 border-t">
+        <CardFooter className="flex flex-wrap gap-2 bg-purple-900/20 p-4 border-t border-purple-900/30">
           {onRegenerate && (
-            <Button variant="outline" onClick={onRegenerate} className="gap-2">
+            <Button variant="outline" onClick={onRegenerate} className="gap-2 border-purple-700/50 hover:bg-purple-900/30 transition-colors">
               <RefreshCw className="h-4 w-4" />
               {t('result.regenerate')}
             </Button>
           )}
-          <Button variant="secondary" onClick={copyToClipboard} className="gap-2">
+          <Button variant="secondary" onClick={copyToClipboard} className="gap-2 bg-purple-900/40 hover:bg-purple-900/60 transition-colors">
             {copied ? (
               <>
                 <Check className="h-4 w-4" />
