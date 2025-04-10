@@ -1,9 +1,13 @@
+
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 
+// Define the Language type
+export type Language = 'en' | 'pt-BR';
+
 type LanguageContextType = {
-  language: string;
+  language: Language;
   t: (key: string) => string;
-  changeLanguage: (lang: string) => void;
+  setLanguage: (lang: Language) => void;
   availableLanguages: { code: string; name: string }[];
 };
 
@@ -43,8 +47,12 @@ const translations = {
     'share.copy': 'Copy',
     'share.copied': 'Copied!',
     'share.emailSubject': 'Check out this AI prompt',
+    'language.pt-BR': 'Português',
+    'language.en': 'English',
+    'theme.dark': 'Dark Mode',
+    'theme.light': 'Light Mode',
   },
-  'pt': {
+  'pt-BR': {
     'app.title': 'Criador de Prompts IA',
     'app.description': 'Crie prompts poderosos para suas ferramentas de IA',
     'nav.home': 'Início',
@@ -79,6 +87,10 @@ const translations = {
     'share.copy': 'Copiar',
     'share.copied': 'Copiado!',
     'share.emailSubject': 'Confira este prompt de IA',
+    'language.pt-BR': 'Português',
+    'language.en': 'English',
+    'theme.dark': 'Modo Escuro',
+    'theme.light': 'Modo Claro',
   }
 };
 
@@ -89,27 +101,32 @@ interface LanguageProviderProps {
 }
 
 const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) => {
-  const [language, setLanguage] = useState<string>(localStorage.getItem('language') || 'en');
+  const [language, setLanguage] = useState<Language>(
+    (localStorage.getItem('language') as Language) || 'en'
+  );
 
   useEffect(() => {
     localStorage.setItem('language', language);
   }, [language]);
 
   const t = (key: string): string => {
-    return translations[language as keyof typeof translations]?.[key] || key;
-  };
-
-  const changeLanguage = (lang: string) => {
-    setLanguage(lang);
+    return translations[language]?.[key] || key;
   };
 
   const availableLanguages = [
     { code: 'en', name: 'English' },
-    { code: 'pt', name: 'Português' }
+    { code: 'pt-BR', name: 'Português' }
   ];
 
   return (
-    <LanguageContext.Provider value={{ language, t, changeLanguage, availableLanguages }}>
+    <LanguageContext.Provider 
+      value={{ 
+        language, 
+        t, 
+        setLanguage, 
+        availableLanguages 
+      }}
+    >
       {children}
     </LanguageContext.Provider>
   );
