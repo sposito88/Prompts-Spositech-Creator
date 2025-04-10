@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { Header } from '@/components/Header';
@@ -10,7 +9,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { useToast } from '@/components/ui/use-toast';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { MagicWand, Clock, Star } from 'lucide-react';
+import { Sparkles, Clock, Star } from 'lucide-react';
 import {
   Sheet,
   SheetContent,
@@ -34,7 +33,6 @@ const Index = () => {
   const [currentPromptId, setCurrentPromptId] = useState<string | null>(null);
   const [formData, setFormData] = useState<PromptData | undefined>(undefined);
 
-  // Carregar histórico e favoritos do localStorage
   useEffect(() => {
     try {
       const savedHistory = localStorage.getItem(HISTORY_KEY);
@@ -51,7 +49,6 @@ const Index = () => {
     }
   }, []);
 
-  // Salvar histórico e favoritos no localStorage quando mudarem
   useEffect(() => {
     localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
   }, [history]);
@@ -65,7 +62,6 @@ const Index = () => {
     setResult(null);
     setLastData(data);
 
-    // Criar um novo ID para este prompt
     const promptId = uuidv4();
     setCurrentPromptId(promptId);
 
@@ -86,17 +82,14 @@ const Index = () => {
       
       let resultText = '';
       
-      // Extrair o texto do campo 'output' do primeiro item do array
       if (Array.isArray(responseData) && responseData.length > 0 && responseData[0].output) {
         resultText = responseData[0].output;
       } else {
-        // Fallback se a estrutura não for a esperada
         resultText = JSON.stringify(responseData);
       }
       
       setResult(resultText);
       
-      // Adicionar ao histórico
       const newHistoryItem: HistoryItem = {
         id: promptId,
         prompt: resultText,
@@ -107,8 +100,7 @@ const Index = () => {
         favorite: false
       };
       
-      setHistory(prev => [newHistoryItem, ...prev.slice(0, 19)]); // Manter apenas os 20 mais recentes
-      
+      setHistory(prev => [newHistoryItem, ...prev.slice(0, 19)]);
     } catch (error) {
       console.error('Error generating prompt:', error);
       toast({
@@ -128,18 +120,14 @@ const Index = () => {
   };
 
   const handleToggleFavorite = (id: string) => {
-    // Verificar se o prompt está no histórico
     const historyItem = history.find(item => item.id === id);
     
     if (historyItem) {
-      // Verificar se já é um favorito
       const existingFavoriteIndex = favorites.findIndex(item => item.id === id);
       
       if (existingFavoriteIndex >= 0) {
-        // Remover dos favoritos
         setFavorites(prev => prev.filter(item => item.id !== id));
         
-        // Atualizar o estado de favorito no histórico
         setHistory(prev => 
           prev.map(item => 
             item.id === id ? { ...item, favorite: false } : item
@@ -151,10 +139,8 @@ const Index = () => {
           duration: 2000,
         });
       } else {
-        // Adicionar aos favoritos
         setFavorites(prev => [{ ...historyItem, favorite: true }, ...prev]);
         
-        // Atualizar o estado de favorito no histórico
         setHistory(prev => 
           prev.map(item => 
             item.id === id ? { ...item, favorite: true } : item
@@ -168,11 +154,9 @@ const Index = () => {
       }
     }
     
-    // Se for o prompt atual, atualizar o estado do currentPromptId
     if (id === currentPromptId) {
       const isFavorite = favorites.some(item => item.id === id);
       if (isFavorite) {
-        // Atualmente é favorito, será removido
         setCurrentPromptId(null);
       }
     }
@@ -203,7 +187,6 @@ const Index = () => {
 
   const handleClearFavorites = () => {
     setFavorites([]);
-    // Também atualizar o estado de favorito no histórico
     setHistory(prev => 
       prev.map(item => ({ ...item, favorite: false }))
     );
@@ -274,7 +257,6 @@ const Index = () => {
               </AnimatePresence>
             </div>
 
-            {/* Sidebar for History/Favorites - Desktop */}
             <div className="hidden md:block w-full md:w-1/3">
               <Tabs defaultValue="history" className="w-full">
                 <TabsList className="w-full">
@@ -306,12 +288,11 @@ const Index = () => {
               </Tabs>
             </div>
 
-            {/* Mobile Version - Sheet Sidebar */}
             <div className="md:hidden fixed bottom-6 right-6 z-10">
               <Sheet>
                 <SheetTrigger asChild>
                   <Button size="icon" className="rounded-full h-14 w-14 shadow-lg">
-                    <MagicWand className="h-6 w-6" />
+                    <Sparkles className="h-6 w-6" />
                   </Button>
                 </SheetTrigger>
                 <SheetContent side="right" className="w-[320px] sm:w-[400px]">

@@ -62,7 +62,7 @@ export function PromptForm({ onSubmit, isLoading, initialData }: PromptFormProps
   }, [initialData, form]);
 
   const handleSubmit = (values: z.infer<typeof formSchema>) => {
-    onSubmit(values);
+    onSubmit(values as PromptData);
   };
 
   return (
