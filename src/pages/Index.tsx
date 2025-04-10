@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { Header } from '@/components/Header';
@@ -207,6 +206,8 @@ const Index = () => {
     }
   };
 
+  const currentYear = new Date().getFullYear();
+
   return (
     <div className="min-h-screen flex flex-col bg-black">
       <Header />
@@ -299,7 +300,7 @@ const Index = () => {
       
       <footer className="border-t border-gray-800 py-6">
         <div className="container text-center text-sm text-gray-500">
-          <p>© 2023 Spositech Prompt Generation</p>
+          <p>© {currentYear} Spositech Prompt Generation</p>
         </div>
       </footer>
     </div>

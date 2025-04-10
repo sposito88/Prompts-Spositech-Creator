@@ -3,7 +3,7 @@ import React from 'react';
 import { useLanguage, Language } from '../contexts/LanguageContext';
 import { useTheme } from '../contexts/ThemeContext';
 import { Button } from '@/components/ui/button';
-import { Sun, Moon, Globe } from 'lucide-react';
+import { Sun, Moon, Globe, Check } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 export function Header() {
-  const { language, setLanguage, t } = useLanguage();
+  const { language, setLanguage, t, availableLanguages } = useLanguage();
   const { theme, toggleTheme } = useTheme();
 
   const handleLanguageChange = (newLanguage: Language) => {
@@ -35,18 +35,16 @@ export function Header() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="bg-black border border-gray-700">
-              <DropdownMenuItem 
-                onClick={() => handleLanguageChange('pt-BR')}
-                className={`${language === 'pt-BR' ? 'bg-gray-800 text-white' : 'text-gray-300'} hover:bg-gray-800 hover:text-white`}
-              >
-                {t('language.pt-BR')}
-              </DropdownMenuItem>
-              <DropdownMenuItem 
-                onClick={() => handleLanguageChange('en')}
-                className={`${language === 'en' ? 'bg-gray-800 text-white' : 'text-gray-300'} hover:bg-gray-800 hover:text-white`}
-              >
-                {t('language.en')}
-              </DropdownMenuItem>
+              {availableLanguages.map((lang) => (
+                <DropdownMenuItem 
+                  key={lang.code}
+                  onClick={() => handleLanguageChange(lang.code)}
+                  className={`flex justify-between items-center ${language === lang.code ? 'bg-gray-800 text-white' : 'text-gray-300'} hover:bg-gray-800 hover:text-white`}
+                >
+                  {t(`language.${lang.code}`)}
+                  {language === lang.code && <Check className="h-4 w-4 ml-2" />}
+                </DropdownMenuItem>
+              ))}
             </DropdownMenuContent>
           </DropdownMenu>
           
