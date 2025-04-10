@@ -1,161 +1,126 @@
+import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 
-import React, { createContext, useState, useContext, ReactNode } from 'react';
-
-// Define available languages
-export type Language = 'pt-BR' | 'en';
-
-// Define translation values structure
-type TranslationValues = {
-  [key: string]: string;
+type LanguageContextType = {
+  language: string;
+  t: (key: string) => string;
+  changeLanguage: (lang: string) => void;
+  availableLanguages: { code: string; name: string }[];
 };
 
-// Translation dictionaries
-const translations: Record<Language, TranslationValues> = {
-  'pt-BR': {
-    // Header
-    'app.title': 'Spositech Prompt Generation',
-    'app.description': 'Gere prompts personalizados para seu projeto',
-    
-    // Form
-    'form.promptStyle': 'Estilo do Prompt',
-    'form.promptStyle.placeholder': 'Selecione um estilo',
-    'form.keywords': 'Palavras-chave ou Área de Aplicação',
-    'form.keywords.placeholder': 'ex: marketing digital, vendas',
-    'form.subject': 'Assunto',
-    'form.subject.placeholder': 'ex: estratégia de conteúdo para Instagram',
-    'form.submit': 'Gerar Prompt',
-    
-    // Prompt Styles
-    'style.creative': 'Criativo',
-    'style.professional': 'Profissional',
-    'style.academic': 'Acadêmico',
-    'style.technical': 'Técnico',
-    'style.conversational': 'Conversacional',
-    'style.storytelling': 'Narrativo',
-    'style.persuasive': 'Persuasivo',
-    'style.instructional': 'Instrucional',
-    
-    // Result
-    'result.title': 'Seu Prompt',
-    'result.regenerate': 'Gerar Novamente',
-    'result.copy': 'Copiar',
-    'result.copied': 'Copiado!',
-    
-    // Loading
-    'loading.message': 'Gerando seu prompt perfeito...',
-    
-    // Errors
-    'error.general': 'Ocorreu um erro. Tente novamente.',
-    'error.requiredField': 'Este campo é obrigatório',
-    
-    // Theme toggle
-    'theme.light': 'Modo Claro',
-    'theme.dark': 'Modo Escuro',
-    
-    // Language toggle
-    'language.en': 'English',
-    'language.pt-BR': 'Português',
-    
-    // History and Favorites
-    'history.title': 'Histórico',
-    'history.empty': 'Sem histórico de prompts',
-    'history.clear': 'Limpar histórico',
-    'history.cleared': 'Histórico limpo',
-    'favorites.title': 'Favoritos',
-    'favorites.add': 'Adicionar aos favoritos',
-    'favorites.remove': 'Remover dos favoritos',
-    'favorites.added': 'Adicionado aos favoritos',
-    'favorites.removed': 'Removido dos favoritos',
-    'favorites.cleared': 'Favoritos limpos',
-  },
+const translations = {
   'en': {
-    // Header
-    'app.title': 'Spositech Prompt Generation',
-    'app.description': 'Generate custom prompts for your project',
-    
-    // Form
-    'form.promptStyle': 'Prompt Style',
-    'form.promptStyle.placeholder': 'Select a style',
-    'form.keywords': 'Keywords or Application Area',
-    'form.keywords.placeholder': 'e.g. digital marketing, sales',
+    'app.title': 'AI Prompt Creator',
+    'app.description': 'Create powerful prompts for your AI tools',
+    'nav.home': 'Home',
+    'nav.about': 'About',
+    'nav.contact': 'Contact',
     'form.subject': 'Subject',
-    'form.subject.placeholder': 'e.g. content strategy for Instagram',
-    'form.submit': 'Generate Prompt',
-    
-    // Prompt Styles
-    'style.creative': 'Creative',
-    'style.professional': 'Professional',
-    'style.academic': 'Academic',
-    'style.technical': 'Technical',
-    'style.conversational': 'Conversational',
-    'style.storytelling': 'Storytelling',
-    'style.persuasive': 'Persuasive',
-    'style.instructional': 'Instructional',
-    
-    // Result
+    'form.subject.placeholder': 'What is the prompt about?',
+    'form.style': 'Style',
+    'form.style.placeholder': 'Select a style',
+    'form.keywords': 'Keywords',
+    'form.keywords.placeholder': 'Enter keywords (optional)',
+    'form.generate': 'Generate',
+    'form.regenerate': 'Regenerate',
     'result.title': 'Your Prompt',
-    'result.regenerate': 'Regenerate',
-    'result.copy': 'Copy',
+    'result.copy': 'Copy to clipboard',
     'result.copied': 'Copied!',
-    
-    // Loading
-    'loading.message': 'Generating your perfect prompt...',
-    
-    // Errors
-    'error.general': 'An error occurred. Please try again.',
-    'error.requiredField': 'This field is required',
-    
-    // Theme toggle
-    'theme.light': 'Light Mode',
-    'theme.dark': 'Dark Mode',
-    
-    // Language toggle
-    'language.en': 'English',
-    'language.pt-BR': 'Português',
-    
-    // History and Favorites
+    'result.regenerate': 'Regenerate',
     'history.title': 'History',
-    'history.empty': 'No prompt history',
-    'history.clear': 'Clear history',
+    'history.empty': 'No history yet',
+    'history.clear': 'Clear History',
     'history.cleared': 'History cleared',
     'favorites.title': 'Favorites',
-    'favorites.add': 'Add to favorites',
-    'favorites.remove': 'Remove from favorites',
+    'favorites.empty': 'No favorites yet',
+    'favorites.add': 'Add to Favorites',
+    'favorites.remove': 'Remove from Favorites',
     'favorites.added': 'Added to favorites',
     'favorites.removed': 'Removed from favorites',
+    'favorites.clear': 'Clear Favorites',
     'favorites.cleared': 'Favorites cleared',
+    'error.general': 'An error occurred. Please try again.',
+    'share.title': 'Share',
+    'share.copy': 'Copy',
+    'share.copied': 'Copied!',
+    'share.emailSubject': 'Check out this AI prompt',
+  },
+  'pt': {
+    'app.title': 'Criador de Prompts IA',
+    'app.description': 'Crie prompts poderosos para suas ferramentas de IA',
+    'nav.home': 'Início',
+    'nav.about': 'Sobre',
+    'nav.contact': 'Contato',
+    'form.subject': 'Assunto',
+    'form.subject.placeholder': 'Sobre o que é o prompt?',
+    'form.style': 'Estilo',
+    'form.style.placeholder': 'Selecione um estilo',
+    'form.keywords': 'Palavras-chave',
+    'form.keywords.placeholder': 'Digite palavras-chave (opcional)',
+    'form.generate': 'Gerar',
+    'form.regenerate': 'Regenerar',
+    'result.title': 'Seu Prompt',
+    'result.copy': 'Copiar',
+    'result.copied': 'Copiado!',
+    'result.regenerate': 'Regenerar',
+    'history.title': 'Histórico',
+    'history.empty': 'Sem histórico ainda',
+    'history.clear': 'Limpar Histórico',
+    'history.cleared': 'Histórico limpo',
+    'favorites.title': 'Favoritos',
+    'favorites.empty': 'Sem favoritos ainda',
+    'favorites.add': 'Adicionar aos Favoritos',
+    'favorites.remove': 'Remover dos Favoritos',
+    'favorites.added': 'Adicionado aos favoritos',
+    'favorites.removed': 'Removido dos favoritos', 
+    'favorites.clear': 'Limpar Favoritos',
+    'favorites.cleared': 'Favoritos limpos',
+    'error.general': 'Ocorreu um erro. Por favor, tente novamente.',
+    'share.title': 'Compartilhar',
+    'share.copy': 'Copiar',
+    'share.copied': 'Copiado!',
+    'share.emailSubject': 'Confira este prompt de IA',
   }
 };
 
-// Create context type
-type LanguageContextType = {
-  language: Language;
-  setLanguage: (language: Language) => void;
-  t: (key: string) => string;
-};
+const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-// Create context with default values
-const LanguageContext = createContext<LanguageContextType>({
-  language: 'pt-BR',
-  setLanguage: () => {},
-  t: () => '',
-});
+interface LanguageProviderProps {
+  children: ReactNode;
+}
 
-// Provider component
-export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [language, setLanguage] = useState<Language>('pt-BR');
+const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) => {
+  const [language, setLanguage] = useState<string>(localStorage.getItem('language') || 'en');
 
-  // Translation function
+  useEffect(() => {
+    localStorage.setItem('language', language);
+  }, [language]);
+
   const t = (key: string): string => {
-    return translations[language][key] || key;
+    return translations[language as keyof typeof translations]?.[key] || key;
   };
 
+  const changeLanguage = (lang: string) => {
+    setLanguage(lang);
+  };
+
+  const availableLanguages = [
+    { code: 'en', name: 'English' },
+    { code: 'pt', name: 'Português' }
+  ];
+
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+    <LanguageContext.Provider value={{ language, t, changeLanguage, availableLanguages }}>
       {children}
     </LanguageContext.Provider>
   );
 };
 
-// Custom hook for using the language context
-export const useLanguage = () => useContext(LanguageContext);
+const useLanguage = (): LanguageContextType => {
+  const context = useContext(LanguageContext);
+  if (!context) {
+    throw new Error("useLanguage must be used within a LanguageProvider");
+  }
+  return context;
+};
+
+export { LanguageProvider, useLanguage };

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
-import { Copy, Check, Star, StarOff, RefreshCw } from 'lucide-react';
+import { Copy, Check, Star, RefreshCw } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 import { SharePrompt } from './SharePrompt';
 import { motion } from 'framer-motion';
