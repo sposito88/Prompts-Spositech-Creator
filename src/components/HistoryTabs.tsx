@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -26,17 +25,17 @@ export function HistoryTabs({
 
   return (
     <Tabs defaultValue="history" className="w-full">
-      <TabsList className="w-full bg-black/50 border border-gray-800">
+      <TabsList className="w-full bg-gray-100 border border-gray-200 dark:bg-gray-800/50 dark:border-gray-700">
         <TabsTrigger 
           value="history" 
-          className="flex-1 data-[state=active]:bg-gray-800 data-[state=active]:text-white"
+          className="flex-1 text-gray-700 dark:text-gray-300 data-[state=active]:bg-white data-[state=active]:text-purple-700 dark:data-[state=active]:bg-gray-700 dark:data-[state=active]:text-purple-300"
         >
           <Clock className="h-4 w-4 mr-2" />
           {t('history.title')}
         </TabsTrigger>
         <TabsTrigger 
           value="favorites" 
-          className="flex-1 data-[state=active]:bg-gray-800 data-[state=active]:text-white"
+          className="flex-1 text-gray-700 dark:text-gray-300 data-[state=active]:bg-white data-[state=active]:text-purple-700 dark:data-[state=active]:bg-gray-700 dark:data-[state=active]:text-purple-300"
         >
           <Star className="h-4 w-4 mr-2" />
           {t('favorites.title')}
@@ -49,6 +48,8 @@ export function HistoryTabs({
           onSelect={onSelectItem}
           onToggleFavorite={onToggleFavorite}
           onClear={onClearHistory}
+          title={t('history.title')}
+          emptyMessage={t('history.empty')}
         />
       </TabsContent>
       
@@ -58,6 +59,8 @@ export function HistoryTabs({
           onSelect={onSelectItem}
           onToggleFavorite={onToggleFavorite}
           onClear={onClearFavorites}
+          title={t('favorites.title')}
+          emptyMessage={t('favorites.empty')}
         />
       </TabsContent>
     </Tabs>

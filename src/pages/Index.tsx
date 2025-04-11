@@ -262,14 +262,16 @@ const Index = () => {
             </div>
 
             <div className="hidden md:block w-full md:w-1/3">
-              <HistoryTabs
-                history={history}
-                favorites={favorites}
-                onSelectItem={handleSelectHistoryItem}
-                onToggleFavorite={handleToggleFavorite}
-                onClearHistory={handleClearHistory}
-                onClearFavorites={handleClearFavorites}
-              />
+              <div className="glass-panel p-4">
+                <HistoryTabs
+                  history={history}
+                  favorites={favorites}
+                  onSelectItem={handleSelectHistoryItem}
+                  onToggleFavorite={handleToggleFavorite}
+                  onClearHistory={handleClearHistory}
+                  onClearFavorites={handleClearFavorites}
+                />
+              </div>
             </div>
 
             <div className="md:hidden fixed bottom-6 right-6 z-10">
@@ -279,9 +281,9 @@ const Index = () => {
                     <Sparkles className="h-6 w-6" />
                   </Button>
                 </SheetTrigger>
-                <SheetContent side="right" className="w-[320px] sm:w-[400px] dark:bg-black dark:border-gray-800 light:bg-white light:border-gray-200 border-l">
+                <SheetContent side="right" className="w-[320px] sm:w-[400px] border-l bg-white border-gray-200 dark:bg-black dark:border-gray-800">
                   <SheetHeader>
-                    <SheetTitle className="dark:text-white light:text-gray-900">{t('history.title')}</SheetTitle>
+                    <SheetTitle className="text-gray-900 dark:text-white">{t('history.title')}</SheetTitle>
                   </SheetHeader>
                   <div className="py-6">
                     <HistoryTabs
@@ -300,8 +302,8 @@ const Index = () => {
         </div>
       </main>
       
-      <footer className="border-t py-6 dark:border-gray-800 light:border-gray-200">
-        <div className="container text-center text-sm dark:text-gray-500 light:text-gray-600">
+      <footer className="border-t py-6 border-gray-200 dark:border-gray-800">
+        <div className="container text-center text-sm text-gray-600 dark:text-gray-500">
           <p>© {currentYear} Spositech Prompt Generation</p>
         </div>
       </footer>

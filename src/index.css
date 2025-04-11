@@ -67,25 +67,25 @@ body {
   .glass-panel {
     @apply backdrop-blur-sm border rounded-lg shadow-lg;
     @apply dark:bg-black/20 dark:border-gray-800;
-    @apply light:bg-white/20 light:border-gray-200;
+    @apply bg-white/20 border-gray-200;
   }
   
   .glass-panel-inner {
     @apply border;
     @apply dark:bg-black/50 dark:border-gray-700;
-    @apply light:bg-white/50 light:border-gray-300;
+    @apply bg-white/50 border-gray-300;
   }
   
   .glass-result-panel {
     @apply backdrop-blur-sm border;
     @apply dark:bg-black/30 dark:border-gray-800;
-    @apply light:bg-white/30 light:border-gray-200;
+    @apply bg-white/30 border-gray-200;
   }
   
   .border-gradient {
     @apply border;
     @apply dark:border-purple-800/50;
-    @apply light:border-purple-400/50;
+    @apply border-purple-400/50;
   }
   
   .gradient-button {

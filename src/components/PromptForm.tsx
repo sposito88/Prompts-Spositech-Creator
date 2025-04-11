@@ -79,18 +79,18 @@ export function PromptForm({ onSubmit, isLoading, initialData }: PromptFormProps
               name="style"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="dark:text-white light:text-gray-900">{t('form.promptStyle')}</FormLabel>
+                  <FormLabel className="text-gray-900 dark:text-white">{t('form.promptStyle')}</FormLabel>
                   <Select 
                     onValueChange={field.onChange} 
                     defaultValue={field.value}
                     value={field.value}
                   >
                     <FormControl>
-                      <SelectTrigger className="dark:bg-black dark:border-gray-700 dark:text-white light:bg-white light:border-gray-300 light:text-gray-900">
+                      <SelectTrigger className="bg-white border-gray-300 text-gray-900 dark:bg-black dark:border-gray-700 dark:text-white">
                         <SelectValue placeholder={t('form.promptStyle.placeholder')} />
                       </SelectTrigger>
                     </FormControl>
-                    <SelectContent className="dark:bg-black dark:border-gray-700 dark:text-white light:bg-white light:border-gray-300 light:text-gray-900">
+                    <SelectContent className="bg-white border-gray-300 text-gray-900 dark:bg-black dark:border-gray-700 dark:text-white">
                       <SelectItem value="creative">{t('style.creative')}</SelectItem>
                       <SelectItem value="professional">{t('style.professional')}</SelectItem>
                       <SelectItem value="academic">{t('style.academic')}</SelectItem>
@@ -111,11 +111,11 @@ export function PromptForm({ onSubmit, isLoading, initialData }: PromptFormProps
               name="keywords"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="dark:text-white light:text-gray-900">{t('form.keywords')}</FormLabel>
+                  <FormLabel className="text-gray-900 dark:text-white">{t('form.keywords')}</FormLabel>
                   <FormControl>
                     <Input
                       placeholder={t('form.keywords.placeholder')}
-                      className="dark:bg-black dark:border-gray-700 dark:text-white light:bg-white light:border-gray-300 light:text-gray-900"
+                      className="bg-white border-gray-300 text-gray-900 dark:bg-black dark:border-gray-700 dark:text-white"
                       {...field}
                     />
                   </FormControl>
@@ -129,11 +129,11 @@ export function PromptForm({ onSubmit, isLoading, initialData }: PromptFormProps
               name="subject"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="dark:text-white light:text-gray-900">{t('form.subject')}</FormLabel>
+                  <FormLabel className="text-gray-900 dark:text-white">{t('form.subject')}</FormLabel>
                   <FormControl>
                     <Input
                       placeholder={t('form.subject.placeholder')}
-                      className="dark:bg-black dark:border-gray-700 dark:text-white light:bg-white light:border-gray-300 light:text-gray-900"
+                      className="bg-white border-gray-300 text-gray-900 dark:bg-black dark:border-gray-700 dark:text-white"
                       {...field}
                     />
                   </FormControl>
