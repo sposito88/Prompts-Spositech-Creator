@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8081:80"
+    restart: unless-stopped
+    # Volumes para desenvolvimento (comentado, descomente para uso em desenvolvimento)
+    # volumes:
+    #   - ./dist:/usr/share/nginx/html
+    #   - ./nginx.conf:/etc/nginx/conf.d/default.conf 
