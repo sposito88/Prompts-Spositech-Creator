@@ -1,4 +1,3 @@
-
 import React, { createContext, useState, useEffect, useContext, ReactNode } from 'react';
 
 type Theme = 'light' | 'dark';
@@ -9,12 +8,12 @@ type ThemeContextType = {
 };
 
 const ThemeContext = createContext<ThemeContextType>({
-  theme: 'light',
+  theme: 'dark',
   toggleTheme: () => {},
 });
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  const [theme, setTheme] = useState<Theme>('light');
+  const [theme, setTheme] = useState<Theme>('dark');
 
   useEffect(() => {
     // Check for user preference in localStorage or system preference
@@ -25,15 +24,21 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
       setTheme(savedTheme);
     } else if (prefersDark) {
       setTheme('dark');
+    } else {
+      setTheme('light');
     }
   }, []);
 
   useEffect(() => {
     // Apply theme to HTML element
+    const root = document.documentElement;
+    
     if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
+      root.classList.add('dark');
+      root.classList.remove('light');
     } else {
-      document.documentElement.classList.remove('dark');
+      root.classList.add('light');
+      root.classList.remove('dark');
     }
     
     // Save preference to localStorage

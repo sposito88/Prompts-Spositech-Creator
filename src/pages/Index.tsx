@@ -18,12 +18,14 @@ import {
   SheetTitle,
 } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
+import { useTheme } from '@/contexts/ThemeContext';
 
 const HISTORY_KEY = 'prompt-history';
 const FAVORITES_KEY = 'prompt-favorites';
 
 const Index = () => {
   const { t } = useLanguage();
+  const { theme } = useTheme();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState<string | null>(null);
@@ -209,7 +211,7 @@ const Index = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <div className="min-h-screen flex flex-col bg-black">
+    <div className="min-h-screen flex flex-col bg-background">
       <Header />
       
       <main className="flex-1 container py-8">
@@ -277,9 +279,9 @@ const Index = () => {
                     <Sparkles className="h-6 w-6" />
                   </Button>
                 </SheetTrigger>
-                <SheetContent side="right" className="w-[320px] sm:w-[400px] bg-black border-l border-gray-800">
+                <SheetContent side="right" className="w-[320px] sm:w-[400px] dark:bg-black dark:border-gray-800 light:bg-white light:border-gray-200 border-l">
                   <SheetHeader>
-                    <SheetTitle className="text-white">{t('history.title')}</SheetTitle>
+                    <SheetTitle className="dark:text-white light:text-gray-900">{t('history.title')}</SheetTitle>
                   </SheetHeader>
                   <div className="py-6">
                     <HistoryTabs
@@ -298,8 +300,8 @@ const Index = () => {
         </div>
       </main>
       
-      <footer className="border-t border-gray-800 py-6">
-        <div className="container text-center text-sm text-gray-500">
+      <footer className="border-t py-6 dark:border-gray-800 light:border-gray-200">
+        <div className="container text-center text-sm dark:text-gray-500 light:text-gray-600">
           <p>© {currentYear} Spositech Prompt Generation</p>
         </div>
       </footer>

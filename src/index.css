@@ -1,9 +1,9 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
+  /* Tema escuro (padrão) */
   --background: 0 0% 3.9%;
   --foreground: 0 0% 98%;
   --card: 0 0% 3.9%;
@@ -25,9 +25,32 @@
   --ring: 262.1 83.3% 57.8%;
 }
 
+.light {
+  /* Tema claro */
+  --background: 0 0% 98%;
+  --foreground: 240 10% 3.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 240 10% 3.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 240 10% 3.9%;
+  --primary: 262.1 83.3% 57.8%;
+  --primary-foreground: 0 0% 98%;
+  --secondary: 240 4.8% 95.9%;
+  --secondary-foreground: 240 5.9% 10%;
+  --muted: 240 4.8% 95.9%;
+  --muted-foreground: 240 3.8% 46.1%;
+  --accent: 240 4.8% 95.9%;
+  --accent-foreground: 240 5.9% 10%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 5.9% 90%;
+  --input: 240 5.9% 90%;
+  --ring: 262.1 83.3% 57.8%;
+}
+
 body {
-  background-color: black;
-  color: white;
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
@@ -36,25 +59,33 @@ body {
     @apply border-border;
   }
   body {
-    @apply bg-black text-foreground;
+    @apply bg-background text-foreground;
   }
 }
 
 @layer components {
   .glass-panel {
-    @apply bg-black/20 backdrop-blur-sm border border-gray-800 rounded-lg shadow-lg;
+    @apply backdrop-blur-sm border rounded-lg shadow-lg;
+    @apply dark:bg-black/20 dark:border-gray-800;
+    @apply light:bg-white/20 light:border-gray-200;
   }
   
   .glass-panel-inner {
-    @apply bg-black/50 border border-gray-700;
+    @apply border;
+    @apply dark:bg-black/50 dark:border-gray-700;
+    @apply light:bg-white/50 light:border-gray-300;
   }
   
   .glass-result-panel {
-    @apply bg-black/30 backdrop-blur-sm border border-gray-800;
+    @apply backdrop-blur-sm border;
+    @apply dark:bg-black/30 dark:border-gray-800;
+    @apply light:bg-white/30 light:border-gray-200;
   }
   
   .border-gradient {
-    @apply border border-purple-800/50;
+    @apply border;
+    @apply dark:border-purple-800/50;
+    @apply light:border-purple-400/50;
   }
   
   .gradient-button {

@@ -1,3 +1,7 @@
+# Spositech Prompt Generation
+
+Um gerador de prompts poderoso para ferramentas de IA.
+
 # Welcome to your Lovable project
 
 ## Project info

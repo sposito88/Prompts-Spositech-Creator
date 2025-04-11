@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 
 // Define the Language type
@@ -15,7 +14,7 @@ type LanguageContextType = {
 const translations = {
   'en': {
     // App general
-    'app.title': 'AI Prompt Creator',
+    'app.title': 'Spositech Prompt Generation',
     'app.description': 'Create powerful prompts for your AI tools',
     
     // Navigation
@@ -88,7 +87,7 @@ const translations = {
   },
   'pt-BR': {
     // App general
-    'app.title': 'Criador de Prompts IA',
+    'app.title': 'Spositech Prompt Generation',
     'app.description': 'Crie prompts poderosos para suas ferramentas de IA',
     
     // Navigation
