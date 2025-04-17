@@ -68,7 +68,9 @@ const Index = () => {
     setCurrentPromptId(promptId);
 
     try {
-      const response = await fetch('https://n8n.spositech.com.br/webhook/creator-prompt', {
+      const webhookUrl = import.meta.env.VITE_WEBHOOK_URL || '/api/generate-prompt';
+      
+      const response = await fetch(webhookUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
