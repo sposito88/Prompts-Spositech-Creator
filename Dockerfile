@@ -13,6 +13,10 @@ RUN npm ci
 # Copiar o código-fonte
 COPY . .
 
+# Argumentos para variáveis de ambiente durante o build
+ARG VITE_WEBHOOK_URL
+ENV VITE_WEBHOOK_URL=${VITE_WEBHOOK_URL:-https://n8n.spositech.com.br/webhook/creator-prompt}
+
 # Construir o aplicativo
 RUN npm run build
 
@@ -23,7 +27,7 @@ FROM nginx:alpine
 RUN rm /etc/nginx/conf.d/default.conf
 
 # Copiar nossa configuração personalizada do Nginx
-COPY nginx.conf /etc/nginx/conf.d/
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Copiar os arquivos de build
 COPY --from=build /app/dist /usr/share/nginx/html

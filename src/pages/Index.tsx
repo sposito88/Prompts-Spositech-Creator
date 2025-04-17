@@ -69,6 +69,7 @@ const Index = () => {
 
     try {
       const webhookUrl = import.meta.env.VITE_WEBHOOK_URL || '/api/generate-prompt';
+      console.log(`Enviando requisição para: ${webhookUrl}`);
       
       const response = await fetch(webhookUrl, {
         method: 'POST',
@@ -79,7 +80,9 @@ const Index = () => {
       });
 
       if (!response.ok) {
-        throw new Error('Server error');
+        const errorText = await response.text();
+        console.error(`Erro do servidor: ${response.status} ${response.statusText}`, errorText);
+        throw new Error(`Erro do servidor: ${response.status} ${response.statusText}`);
       }
 
       const responseData = await response.json();
@@ -106,11 +109,12 @@ const Index = () => {
       
       setHistory(prev => [newHistoryItem, ...prev.slice(0, 19)]);
     } catch (error) {
-      console.error('Error generating prompt:', error);
+      console.error('Erro ao gerar prompt:', error);
       toast({
         variant: "destructive",
         title: t('error.general'),
-        duration: 3000,
+        description: error instanceof Error ? error.message : String(error),
+        duration: 4000,
       });
     } finally {
       setIsLoading(false);
